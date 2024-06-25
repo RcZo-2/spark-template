@@ -4,9 +4,10 @@
 name: Maven Package
 
 on:
-  release:
-    types: [published]
-
+  push:
+    tags:
+      - '*'
+      
 jobs:
   build:
 
@@ -27,10 +28,12 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
 
-    - name: Upload JAR as Release Asset
-      uses: actions/upload-artifact@v2
-      with:
-          name: my-jar
-          path: target/*.jar
+    - name: Upload JAR to Release
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        RELEASE_TAG="${GITHUB_REF/refs\/tags\//}"
+        echo "Creating a release for tag $RELEASE_TAG"
+        # Create a GitHub release using the jar file
+        gh release create "$RELEASE_TAG" target/*.jar
       env:
         GITHUB_TOKEN: ${{ github.token }}
