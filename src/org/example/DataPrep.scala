@@ -2,7 +2,6 @@ package org.example
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.storage.StorageLevel
-import com.amazonaws.SDKGlobalConfiguration
 import io.delta.tables._
 
 object DataPrep {
