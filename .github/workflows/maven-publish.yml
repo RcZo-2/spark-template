@@ -33,6 +33,6 @@ jobs:
         RELEASE_TAG="${GITHUB_REF/refs\/tags\//}"
         echo "Creating a release for tag $RELEASE_TAG"
         # Create a GitHub release using the jar file
-        gh release create "$RELEASE_TAG" target/your-java-project.jar
+        gh release create "$RELEASE_TAG" target/my-spark-test-1.0.jar
       env:
         GITHUB_TOKEN: ${{ github.token }}
